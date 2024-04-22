@@ -1,73 +1,95 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Forex API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+API for fetching live FX conversion rates, performing currency conversion, and managing user accounts.
 
 ## Installation
 
-```bash
-$ npm install
-```
+1. Clone this repository:
 
-## Running the app
+   ```bash
+   git clone https://github.com/your-username/forex-api.git
+   
+2. Install dependencies:
+   cd forex-api
+   npm install
 
-```bash
-# development
-$ npm run start
+3. Set up environment variables:Create a .env file in the root directory of the project with the following content:
+   # Forex API configuration
+   API_KEY=your_tradermade_api_key
 
-# watch mode
-$ npm run start:dev
+   # Server configuration
+   PORT=3000
+   Replace your_tradermade_api_key with your TraderMade API key.
 
-# production mode
-$ npm run start:prod
-```
+4. Running the application
+   npm start
+   The application will start on http://localhost:3000 by default.
 
-## Test
+API Endpoints
 
-```bash
-# unit tests
-$ npm run test
+1. Fetch FX rates
+URL: /fx-rates
+Method: GET
+Description: Fetches live FX conversion rates.
+Response: {
+  "quoteId": "string",
+  "expiry_at": 1234567890,
+  "rates": {
+    "AED": 3.67,
+    "ALL": 109.55,
+    ...
+  }
+}
 
-# e2e tests
-$ npm run test:e2e
+2. Convert FX
+URL: /fx-rates/conversion
+Method: POST
+Description: Converts the specified amount from one currency to another.
+Request: {
+  "quoteId": "string",
+  "fromCurrency": "USD",
+  "toCurrency": "EUR",
+  "amount": 100
+}
+Response: {
+  "convertedAmount": 90.53,
+  "currency": "EUR"
+}
 
-# test coverage
-$ npm run test:cov
-```
+3. Top up account & Get account balance
+URL: /accounts/topup
+Method: POST
+Description: Adds funds to the user's account.
+Request: {
+  "currency": "USD",
+  "amount": 100
+}
+Response: {
+  "message": "Successfully topped up 100 USD"
+}
+URL: /accounts/balance
+Method: GET
+Description: Gets the balance of the user's account.
+Response: {
+  "balances": {
+    "USD": 100,
+    "EUR": 90.53,
+    ...
+  }
+}
+URL: /accounts/balance
+Method: GET
+Description: Gets the balance of the user's account.
+Response: {
+  "balances": {
+    "USD": 100,
+    "EUR": 90.53,
+    ...
+  }
+}
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Technologies Used
+NestJS
+Axios
+NestJS Schedule
+Swagger

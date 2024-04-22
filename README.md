@@ -4,7 +4,7 @@ API for fetching live FX conversion rates, performing currency conversion, and m
 
 ## Installation
 
-1. Clone this repository:
+1. Clone this repository: 
 
    ```bash
    git clone https://github.com/20ucs160/ForexTradingSystem.git
@@ -88,7 +88,7 @@ Response: {
   }
 }
 
-Technologies Used
+#Technologies Used
 NestJS
 Axios
 NestJS Schedule

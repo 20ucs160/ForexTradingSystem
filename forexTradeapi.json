@@ -1,0 +1,184 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Forex API",
+    "description": "API documentation for the Forex service",
+    "version": "1.0"
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "FX Rates",
+      "description": "API endpoints related to fetching FX rates"
+    },
+    {
+      "name": "FX Conversion",
+      "description": "API endpoints related to converting FX"
+    },
+    {
+      "name": "Account Management",
+      "description": "API endpoints related to managing user accounts"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/fx-rates": {
+      "get": {
+        "tags": [
+          "FX Rates"
+        ],
+        "summary": "Fetch FX rates",
+        "description": "This endpoint fetches live FX conversion rates.\nEach rate is valid for 30 seconds.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quoteId": {
+                  "type": "string",
+                  "description": "Unique ID for the quote"
+                },
+                "expiry_at": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "Expiry time for the quote in Unix timestamp format"
+                },
+                "rates": {
+                  "type": "object",
+                  "description": "Object containing FX rates"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "FX Conversion"
+        ],
+        "summary": "Convert FX",
+        "description": "This endpoint performs an FX conversion using the provided quoteId and converts the specified amount from one currency to another.\n",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Conversion details",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quoteId": {
+                  "type": "string",
+                  "description": "Unique ID for the quote"
+                },
+                "fromCurrency": {
+                  "type": "string",
+                  "description": "Source currency code"
+                },
+                "toCurrency": {
+                  "type": "string",
+                  "description": "Target currency code"
+                },
+                "amount": {
+                  "type": "number",
+                  "description": "Amount to convert",
+                  "format": "float"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "convertedAmount": {
+                  "type": "number",
+                  "description": "Converted amount",
+                  "format": "float"
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "Target currency code"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/topup": {
+      "post": {
+        "tags": [
+          "Account Management"
+        ],
+        "summary": "Top up account",
+        "description": "Add funds to the user's account",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Top up details",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currency": {
+                  "type": "string",
+                  "description": "Currency code"
+                },
+                "amount": {
+                  "type": "number",
+                  "description": "Amount to top up",
+                  "format": "float"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Success message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/balance": {
+      "get": {
+        "tags": [
+          "Account Management"
+        ],
+        "summary": "Get account balance",
+        "description": "Get the balance of the user's account",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "balances": {
+                  "type": "object",
+                  "description": "Account balances"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

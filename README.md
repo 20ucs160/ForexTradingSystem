@@ -7,7 +7,7 @@ API for fetching live FX conversion rates, performing currency conversion, and m
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/forex-api.git
+   git clone https://github.com/20ucs160/ForexTradingSystem.git
    
 2. Install dependencies:
    cd forex-api
